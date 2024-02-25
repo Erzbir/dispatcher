@@ -22,7 +22,7 @@ import java.util.function.Predicate;
  * @author Erzbir
  * @Data: 2023/12/6 10:46
  */
-public abstract class EventChannel<E extends Event> implements ListenerContainer<E>, Cancelable, AutoCloseable {
+public abstract class EventChannel<E extends Event> implements ListenerRegistrar, ListenerContainer<E>, Cancelable, AutoCloseable {
     protected Class<E> baseEventClass;
     protected List<ListenerInterceptor> listenerInterceptors = new ArrayList<>();
     protected AtomicBoolean activated = new AtomicBoolean(true);

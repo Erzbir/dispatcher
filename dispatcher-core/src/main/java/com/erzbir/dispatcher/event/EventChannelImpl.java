@@ -149,6 +149,12 @@ public class EventChannelImpl<E extends Event> extends EventChannel<E> {
         };
     }
 
+    @SuppressWarnings({"unchecked"})
+    @Override
+    public <T extends Event> ListenerHandle register(Class<T> eventType, Listener<T> listener) {
+        return registerListener((Class<E>) eventType, (Listener<E>) listener);
+    }
+
     public class SafeListener implements Listener<E> {
         private final Listener<E> delegate;
 

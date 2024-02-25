@@ -8,7 +8,7 @@ import com.erzbir.dispatcher.interceptor.EventDispatchInterceptor;
  * @author Erzbir
  * @Data: 2024/2/7 02:52
  */
-public interface EventDispatcher extends EventProcessor, ListenerRegistrar, Cancelable {
+public interface EventDispatcher extends Cancelable {
 
     default void dispatch(Event event) {
         dispatch(event, GlobalEventChannel.INSTANCE);

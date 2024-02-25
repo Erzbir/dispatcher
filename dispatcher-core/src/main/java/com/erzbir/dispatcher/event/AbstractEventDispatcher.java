@@ -1,7 +1,6 @@
 package com.erzbir.dispatcher.event;
 
 import com.erzbir.dispatcher.interceptor.EventDispatchInterceptor;
-import com.erzbir.dispatcher.interceptor.ListenerInterceptor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -61,16 +60,6 @@ public abstract class AbstractEventDispatcher implements EventDispatcher {
     @Override
     public boolean isActive() {
         return activated.get();
-    }
-
-    @Override
-    public void addInterceptor(ListenerInterceptor listenerInterceptor, EventChannel<Event> channel) {
-        channel.addInterceptor(listenerInterceptor);
-    }
-
-    @Override
-    public <T extends Event> ListenerHandle register(EventChannel<T> channel, Class<T> eventType, Listener<T> listener) {
-        return channel.registerListener(eventType, listener);
     }
 
     @Override
