@@ -23,27 +23,12 @@ void dispatchTest() {
 
 ### 注册监听
 
-#### 使用 `GlobalChannel`
-
-api 模块中开放一个 `GlobalEventChannel`, 可以通过过滤, 将监听注册到相应的 `EventChannel`
+api 模块中开放了一个 `GlobalEventChannel` 类, 可以通过过滤, 将监听注册到相应的 `EventChannel`
 
 ```java
 void subscribeTest() {
     EventChannel<BotEvent> eventEventChannel = GlobalEventChannel.INSTANCE.filterInstance(TestEvent.class);
     eventEventChannel.subscribe(TestEvent.class, event -> {
-        log.info("Event: {}", event);
-        return StandardListenerResult.CONTINUE;
-    });
-}
-```
-
-#### 使用 `EventDispatcher`
-
-使用 `EventDispatcher` 注册监听必须指定注册的 `EventChannel`
-
-```java
-void registerTest() {
-    eventDispatcher.register(GlobalEventChannel.INSTANCE, TestEvent.class, event -> {
         log.info("Event: {}", event);
         return StandardListenerResult.CONTINUE;
     });
