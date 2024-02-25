@@ -5,7 +5,7 @@ package com.erzbir.dispatcher.application;
  * @Data: 2024/2/8 01:28
  */
 public class DefaultDispatcherConfiguration implements DispatcherConfiguration {
-    private Mode mode = Mode.NOTIFY;
+    private Mode mode = Mode.POLL;
 
     @Override
     public Mode getMode() {
