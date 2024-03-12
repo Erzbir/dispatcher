@@ -72,6 +72,11 @@ public class GlobalEventChannel extends EventChannel<Event> {
     public Iterable<Listener<Event>> getListeners() {
         return delegate.getListeners();
     }
+
+    @Override
+    public <T extends Event> ListenerHandle register(Class<T> eventType, Listener<T> listener) {
+        return delegate.register(eventType, listener);
+    }
 }
 
 
