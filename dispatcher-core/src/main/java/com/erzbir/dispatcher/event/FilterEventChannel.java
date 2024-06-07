@@ -57,34 +57,12 @@ public class FilterEventChannel<E extends Event> extends EventChannel<E> {
         return delegate.createListener(intercept(handler));
     }
 
-    private <T extends E> Consumer<T> intercept(Consumer<T> handler) {
-        return (ev) -> {
-            boolean filterResult;
-            filterResult = getBaseEventClass().isInstance(ev) && filter.test(ev);
-            if (filterResult) {
-                handler.accept(ev);
-            }
-        };
-    }
-
     private <T extends E> Listener<T> intercept(Listener<T> listener) {
         return (ev) -> {
             boolean filterResult;
             filterResult = getBaseEventClass().isInstance(ev) && filter.test(ev);
             if (filterResult) {
                 return listener.onEvent(ev);
-            } else {
-                return StandardListenerResult.TRUNCATED;
-            }
-        };
-    }
-
-    private <T extends E> Function<T, ListenerResult> intercept(Function<T, ListenerResult> handler) {
-        return (ev) -> {
-            boolean filterResult;
-            filterResult = getBaseEventClass().isInstance(ev) && filter.test(ev);
-            if (filterResult) {
-                return handler.apply(ev);
             } else {
                 return StandardListenerResult.TRUNCATED;
             }
@@ -105,4 +83,27 @@ public class FilterEventChannel<E extends Event> extends EventChannel<E> {
     public Iterable<Listener<E>> getListeners() {
         return delegate.getListeners();
     }
+
+    private <T extends E> Consumer<T> intercept(Consumer<T> handler) {
+        return (ev) -> {
+            boolean filterResult;
+            filterResult = getBaseEventClass().isInstance(ev) && filter.test(ev);
+            if (filterResult) {
+                handler.accept(ev);
+            }
+        };
+    }
+
+    private <T extends E> Function<T, ListenerResult> intercept(Function<T, ListenerResult> handler) {
+        return (ev) -> {
+            boolean filterResult;
+            filterResult = getBaseEventClass().isInstance(ev) && filter.test(ev);
+            if (filterResult) {
+                return handler.apply(ev);
+            } else {
+                return StandardListenerResult.TRUNCATED;
+            }
+        };
+    }
+
 }

@@ -22,7 +22,6 @@ public class EventChannelImpl<E extends Event> extends EventChannel<E> {
     private final Map<Listener<?>, Thread> taskMap = new WeakHashMap<>();
     protected List<ListenerDescription> listeners = new ArrayList<>();
 
-
     public EventChannelImpl(Class<E> baseEventClass) {
         super(baseEventClass);
     }
@@ -75,18 +74,6 @@ public class EventChannelImpl<E extends Event> extends EventChannel<E> {
         return createSafeListener(handle::apply);
     }
 
-    private Listener<E> createSafeListener(Listener<E> listener) {
-        if (listener instanceof SafeListener) {
-            return listener;
-        }
-        return new SafeListener(listener);
-    }
-
-    private boolean interceptProcess(ListenerContext listenerContext) {
-        InterceptProcessor interceptProcessor = new DefaultInterceptProcessor();
-        return interceptProcessor.intercept(listenerContext, interceptors);
-    }
-
 
     @Override
     public EventChannel<E> filter(Predicate<Event> predicate) {
@@ -114,6 +101,18 @@ public class EventChannelImpl<E extends Event> extends EventChannel<E> {
             }
             process(listenerDescription, event);
         }
+    }
+
+    private Listener<E> createSafeListener(Listener<E> listener) {
+        if (listener instanceof SafeListener) {
+            return listener;
+        }
+        return new SafeListener(listener);
+    }
+
+    private boolean interceptProcess(ListenerContext listenerContext) {
+        InterceptProcessor interceptProcessor = new DefaultInterceptProcessor();
+        return interceptProcessor.intercept(listenerContext, interceptors);
     }
 
 
