@@ -12,8 +12,8 @@
 
 ```java
 void dispatchTest() {
-    Dispatcher dispatcher = new DefaultDispatcher();
-    EventDispatcher eventDispatcher = dispatcher.getEventDispatcher();
+    Application application = DefaultApplication.INSTANCE;
+    EventDispatcher eventDispatcher = application.getEventDispatcher();
     eventDispatcher.start();
     eventDispatcher.dispatch(testEvent);
     eventDispatcher.dispatch(testEvent, filteredChannel);
