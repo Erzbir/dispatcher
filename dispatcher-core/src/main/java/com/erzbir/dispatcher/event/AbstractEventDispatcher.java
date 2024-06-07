@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/22 00:08
+ * @since 1.0.0
  */
 @Slf4j
 public abstract class AbstractEventDispatcher implements EventDispatcher {

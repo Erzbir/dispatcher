@@ -2,7 +2,7 @@ package com.erzbir.dispatcher.application;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/8 00:38
+ * @since 1.0.0
  */
 public interface DispatcherConfiguration {
 

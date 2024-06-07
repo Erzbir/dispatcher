@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
  * 基于通知的 {@link EventDispatcher}
  *
  * @author Erzbir
- * @Data: 2024/2/21 23:45
+ * @since 1.0.0
  */
 @Slf4j
 public class NotificationEventDispatcher extends AbstractEventDispatcher implements EventDispatcher {

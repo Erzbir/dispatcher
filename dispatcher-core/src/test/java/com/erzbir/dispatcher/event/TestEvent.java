@@ -2,7 +2,7 @@ package com.erzbir.dispatcher.event;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/14 02:19
+ * @since 1.0.0
  */
 public class TestEvent extends AbstractEvent implements Event {
     public TestEvent(Object source) {

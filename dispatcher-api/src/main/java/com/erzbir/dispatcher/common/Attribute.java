@@ -2,20 +2,20 @@ package com.erzbir.dispatcher.common;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/22 14:43
+ * @since 1.0.0
  */
 public interface Attribute<K, V> {
-    Key<K> getKey();
-
-    Value<V> getValue();
-
-    Attribute<K, V> setKey(K key);
-
-    Attribute<K, V> setValue(V value);
-
     static Attribute<Object, Object> empty() {
         return new Builder<>(null, null).build();
     }
+
+    Key<K> getKey();
+
+    Attribute<K, V> setKey(K key);
+
+    Value<V> getValue();
+
+    Attribute<K, V> setValue(V value);
 
     interface Key<E> {
         E getKey();

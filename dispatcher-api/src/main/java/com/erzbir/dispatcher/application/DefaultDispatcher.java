@@ -6,7 +6,7 @@ import java.util.ServiceLoader;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/25 17:45
+ * @since 1.0.0
  */
 public class DefaultDispatcher implements Dispatcher {
     private final Dispatcher delegate;

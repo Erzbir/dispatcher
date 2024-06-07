@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/13 16:08
+ * @since 1.0.0
  */
 abstract class HookableHandle implements ListenerHandle {
     protected Runnable hook;

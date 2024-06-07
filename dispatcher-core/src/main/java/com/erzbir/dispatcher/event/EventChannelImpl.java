@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 
 /**
  * @author Erzbir
- * @Data: 2023/12/6 13:39
+ * @since 1.0.0
  */
 @Slf4j
 public class EventChannelImpl<E extends Event> extends EventChannel<E> {

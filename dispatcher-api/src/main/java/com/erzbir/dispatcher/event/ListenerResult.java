@@ -4,7 +4,7 @@ package com.erzbir.dispatcher.event;
  * 监听完成返回的结果
  *
  * @author Erzbir
- * @Data: 2024/2/3 11:44
+ * @since 1.0.0
  */
 public interface ListenerResult {
     boolean isTruncated();

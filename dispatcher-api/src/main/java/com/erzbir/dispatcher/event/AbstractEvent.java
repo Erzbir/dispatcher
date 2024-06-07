@@ -4,13 +4,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Erzbir
- * @Data: 2023/12/6 10:47
+ * @since 1.0.0
  */
 public abstract class AbstractEvent implements Event {
+    protected final AtomicBoolean intercepted;
     private final AtomicBoolean canceled;
     protected Object source;
     protected long timestamp;
-    protected final AtomicBoolean intercepted;
 
     public AbstractEvent(Object source) {
         this.source = source;

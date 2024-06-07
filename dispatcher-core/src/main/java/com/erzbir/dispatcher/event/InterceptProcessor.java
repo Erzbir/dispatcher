@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author Erzbir
- * @Data: 2024/3/12 14:15
+ * @since 1.0.0
  */
 public interface InterceptProcessor {
     <E> boolean intercept(E target, List<Interceptor<E>> interceptors);

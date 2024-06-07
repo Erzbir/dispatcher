@@ -4,7 +4,7 @@ package com.erzbir.dispatcher.common;
  * 属性容器接口
  *
  * @author Erzbir
- * @Data: 2023/12/6 10:46
+ * @since 1.0.0
  */
 public interface AttributeContainer<K, V> {
     void putAttribute(Attribute<K, V> attribute);

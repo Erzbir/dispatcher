@@ -7,7 +7,7 @@ import com.erzbir.dispatcher.event.PollingEventDispatcher;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/8 01:26
+ * @since 1.0.0
  */
 public class DefaultDispatcher implements Dispatcher {
     private final DispatcherConfiguration config = new DefaultDispatcherConfiguration();

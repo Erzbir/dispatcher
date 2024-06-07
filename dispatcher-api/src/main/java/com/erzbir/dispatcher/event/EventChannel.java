@@ -21,7 +21,7 @@ import java.util.function.Predicate;
  * 支持 filter 过滤出一个新的 channel
  *
  * @author Erzbir
- * @Data: 2023/12/6 10:46
+ * @since 1.0.0
  */
 public abstract class EventChannel<E extends Event> implements ListenerContainer<E>, Cancelable, AutoCloseable {
     protected Class<E> baseEventClass;

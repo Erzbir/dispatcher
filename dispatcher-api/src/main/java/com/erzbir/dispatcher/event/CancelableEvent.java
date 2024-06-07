@@ -2,7 +2,7 @@ package com.erzbir.dispatcher.event;
 
 /**
  * @author Erzbir
- * @Data: 2023/12/6 13:56
+ * @since 1.0.0
  */
 public interface CancelableEvent extends Cancelable {
     boolean isCanceled();

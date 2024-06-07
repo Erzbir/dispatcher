@@ -4,7 +4,7 @@ import com.erzbir.dispatcher.event.ListenerContext;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/13 21:27
+ * @since 1.0.0
  */
 public interface ListenerInterceptor extends Interceptor<ListenerContext> {
     @Override

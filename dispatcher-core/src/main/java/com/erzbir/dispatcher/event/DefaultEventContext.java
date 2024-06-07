@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/7 16:57
+ * @since 1.0.0
  */
 public class DefaultEventContext implements EventContext {
     private final Event event;

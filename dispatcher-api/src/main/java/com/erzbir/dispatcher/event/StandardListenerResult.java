@@ -2,7 +2,7 @@ package com.erzbir.dispatcher.event;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/7 05:26
+ * @since 1.0.0
  */
 public enum StandardListenerResult implements ListenerResult {
     CONTINUE(false, true),

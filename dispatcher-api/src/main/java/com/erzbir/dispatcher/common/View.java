@@ -8,8 +8,9 @@ import java.util.stream.Stream;
 
 /**
  * 只读的一个视图
+ *
  * @author Erzbir
- * @Data: 2024/2/22 17:28
+ * @since 1.0.0
  */
 public interface View {
     <T> T get(Object key);

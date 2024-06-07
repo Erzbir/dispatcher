@@ -6,7 +6,7 @@ package com.erzbir.dispatcher.interceptor;
  * 返回 {@code true} 则代表拦截
  *
  * @author Erzbir
- * @Data: 2024/2/3 11:37
+ * @since 1.0.0
  */
 public interface Interceptor<E> {
 

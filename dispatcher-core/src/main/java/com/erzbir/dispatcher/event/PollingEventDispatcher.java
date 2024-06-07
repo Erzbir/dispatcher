@@ -9,16 +9,16 @@ import java.util.concurrent.PriorityBlockingQueue;
  * 基于轮询的 {@link EventDispatcher}, 需要调用
  *
  * @author Erzbir
- * @Data: 2024/2/7 03:46
+ * @since 1.0.0
  */
 @Slf4j
 public class PollingEventDispatcher extends AbstractEventDispatcher implements EventDispatcher {
     // 同步块的锁, 用于控制线程
     private final Object dispatchLock = new Object();
-    // 当前是否暂停
-    private volatile boolean suspended = false;
     // 事件缓存队列
     private final PriorityBlockingQueue<Event> eventQueue = new PriorityBlockingQueue<>(10, Comparator.comparingInt(Event::getPriority));
+    // 当前是否暂停
+    private volatile boolean suspended = false;
 
     @Override
     protected <E extends Event> void dispatchTo(E event, EventChannel<E> channel) {

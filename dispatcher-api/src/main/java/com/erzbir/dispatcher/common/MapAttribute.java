@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
  * 基于 {@link LinkedHashMap}
  *
  * @author Erzbir
- * @Data: 2024/2/7 17:46
+ * @since 1.0.0
  */
 public class MapAttribute<K, V> extends LinkedHashMap<Attribute.Key<K>, Attribute<K, V>> implements AttributeContainer<K, V> {
     @Override

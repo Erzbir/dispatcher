@@ -5,7 +5,7 @@ import com.erzbir.dispatcher.event.EventDispatcher;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/8 00:41
+ * @since 1.0.0
  */
 public interface Dispatcher {
     DispatcherConfiguration getConfiguration();

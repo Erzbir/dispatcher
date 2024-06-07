@@ -1,14 +1,13 @@
 package com.erzbir.dispatcher.event;
 
 import com.erzbir.dispatcher.interceptor.Interceptor;
-import com.erzbir.dispatcher.interceptor.ListenerInterceptor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/7 02:46
+ * @since 1.0.0
  */
 public sealed interface ListenerInvoker {
     ListenerResult invoke(ListenerContext listenerContext);

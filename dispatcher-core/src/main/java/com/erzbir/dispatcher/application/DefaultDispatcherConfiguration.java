@@ -2,7 +2,7 @@ package com.erzbir.dispatcher.application;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/8 01:28
+ * @since 1.0.0
  */
 public class DefaultDispatcherConfiguration implements DispatcherConfiguration {
     private Mode mode = Mode.POLL;

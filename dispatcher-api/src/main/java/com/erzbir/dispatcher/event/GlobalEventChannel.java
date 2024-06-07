@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 
 /**
  * @author Erzbir
- * @Data: 2023/12/6 11:09
+ * @since 1.0.0
  */
 public class GlobalEventChannel extends EventChannel<Event> {
     public static GlobalEventChannel INSTANCE = new GlobalEventChannel(Event.class);

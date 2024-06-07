@@ -2,7 +2,7 @@ package com.erzbir.dispatcher.event;
 
 /**
  * @author Erzbir
- * @Data: 2023/12/6 10:46
+ * @since 1.0.0
  */
 public interface Event {
     /**

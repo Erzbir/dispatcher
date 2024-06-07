@@ -6,7 +6,7 @@ import com.erzbir.dispatcher.interceptor.DispatchInterceptor;
  * 事件调度器
  *
  * @author Erzbir
- * @Data: 2024/2/7 02:52
+ * @since 1.0.0
  */
 public interface EventDispatcher extends Cancelable {
 

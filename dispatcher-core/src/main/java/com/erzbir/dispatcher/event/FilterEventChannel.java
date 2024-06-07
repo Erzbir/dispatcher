@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 /**
  * @author Erzbir
- * @Data: 2023/12/6 16:41
+ * @since 1.0.0
  */
 public class FilterEventChannel<E extends Event> extends EventChannel<E> {
     private final EventChannel<E> delegate;

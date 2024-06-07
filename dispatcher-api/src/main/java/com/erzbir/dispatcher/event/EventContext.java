@@ -4,7 +4,7 @@ import com.erzbir.dispatcher.common.Context;
 
 /**
  * @author Erzbir
- * @Data: 2024/2/3 11:42
+ * @since 1.0.0
  */
 public interface EventContext extends Context {
     Event getEvent();
