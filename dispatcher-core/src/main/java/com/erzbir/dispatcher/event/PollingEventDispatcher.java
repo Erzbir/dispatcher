@@ -37,14 +37,21 @@ public class PollingEventDispatcher extends AbstractEventDispatcher implements E
         Runnable runnable = () -> {
             while (activated.get() && !Thread.currentThread().isInterrupted()) {
                 // 如果队列为空则暂让线程等待
-                if (eventQueue.isEmpty()) {
-                    suspend();
-                    continue;
+                try {
+                    if (eventQueue.isEmpty()) {
+                        suspend();
+                        continue;
+                    }
+                    Event event = eventQueue.take();
+                    EventChannelDispatcher<Event> channel = EventChannelDispatcher.INSTANCE;
+                    Thread.ofVirtual()
+                            .name("Dispatcher-Sub-Thread")
+                            .start(createTask(channel, event));
+                } catch (InterruptedException e) {
+                    log.error("Dispatching error: {}", e.getMessage());
+                    cancel();
+                    Thread.currentThread().interrupt();
                 }
-                EventChannelDispatcher<Event> channel = EventChannelDispatcher.INSTANCE;
-                Thread.ofVirtual()
-                        .name("Dispatcher-Sub-Thread")
-                        .start(createTask(channel));
             }
         };
         // 主线程结束后程序不结束, 调用 cancel() 后结束
@@ -57,31 +64,24 @@ public class PollingEventDispatcher extends AbstractEventDispatcher implements E
         }
     }
 
-    private void suspend() {
-        try {
-            synchronized (dispatchLock) {
-                suspended = true;
-                dispatchLock.wait();
-            }
-        } catch (InterruptedException e) {
-            log.error("Dispatching error: {}", e.getMessage());
-            cancel();
-            Thread.currentThread().interrupt();
+    private void suspend() throws InterruptedException {
+        synchronized (dispatchLock) {
+            suspended = true;
+            dispatchLock.wait();
         }
     }
 
-    private Runnable createTask(EventChannel<Event> channel) {
+    private Runnable createTask(EventChannel<Event> channel, Event event) {
         return () -> {
             try {
-                Event takenEvent = eventQueue.take();
-                if (takenEvent instanceof CancelableEvent cancelableEvent) {
+                if (event instanceof CancelableEvent cancelableEvent) {
                     if (cancelableEvent.isCanceled()) {
                         return;
                     }
                 }
-                if (!takenEvent.isIntercepted()) {
-                    log.debug("Dispatching event: {} to channel: {}", takenEvent, channel.getClass().getSimpleName());
-                    channel.broadcast(new DefaultEventContext(takenEvent));
+                if (!event.isIntercepted()) {
+                    log.debug("Dispatching event: {} to channel: {}", event, channel.getClass().getSimpleName());
+                    channel.broadcast(new DefaultEventContext(event));
                 }
             } catch (Throwable e) {
                 log.error("Dispatching to channel: {} error: {}", channel.getClass().getSimpleName(), e.getMessage());

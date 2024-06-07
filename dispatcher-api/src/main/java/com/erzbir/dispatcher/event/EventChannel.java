@@ -1,6 +1,7 @@
 package com.erzbir.dispatcher.event;
 
 
+import com.erzbir.dispatcher.interceptor.Interceptor;
 import com.erzbir.dispatcher.interceptor.ListenerInterceptor;
 
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ import java.util.function.Predicate;
  * @author Erzbir
  * @Data: 2023/12/6 10:46
  */
-public abstract class EventChannel<E extends Event> implements ListenerRegistrar, ListenerContainer<E>, Cancelable, AutoCloseable {
+public abstract class EventChannel<E extends Event> implements ListenerContainer<E>, Cancelable, AutoCloseable {
     protected Class<E> baseEventClass;
-    protected List<ListenerInterceptor> listenerInterceptors = new ArrayList<>();
+    protected List<Interceptor<ListenerContext>> listenerInterceptors = new ArrayList<>();
     protected AtomicBoolean activated = new AtomicBoolean(true);
 
     public EventChannel(Class<E> baseEventClass) {

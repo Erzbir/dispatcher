@@ -1,6 +1,7 @@
 package com.erzbir.dispatcher.event;
 
-import com.erzbir.dispatcher.interceptor.EventDispatchInterceptor;
+import com.erzbir.dispatcher.interceptor.DispatchInterceptor;
+import com.erzbir.dispatcher.interceptor.Interceptor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -13,8 +14,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 @Slf4j
 public abstract class AbstractEventDispatcher implements EventDispatcher {
-    protected final List<EventDispatchInterceptor> eventDispatchInterceptors = new ArrayList<>();
+    protected final List<Interceptor<EventContext>> eventDispatchInterceptors = new ArrayList<>();
     protected final AtomicBoolean activated = new AtomicBoolean(false);
+    protected InterceptProcessor interceptProcessor = new DefaultInterceptProcessor();
 
     @Override
     public <E extends Event> void dispatch(E event, EventChannel<E> channel) {
@@ -36,20 +38,12 @@ public abstract class AbstractEventDispatcher implements EventDispatcher {
     protected abstract <E extends Event> void dispatchTo(E event, EventChannel<E> channel);
 
     private boolean intercept(EventContext eventContext) {
-        for (EventDispatchInterceptor eventDispatchInterceptor : eventDispatchInterceptors) {
-            if (!eventDispatchInterceptor.intercept(eventContext)) {
-                Event event = eventContext.getEvent();
-                event.intercepted();
-                log.debug("Event : {} was truncated", event);
-                return false;
-            }
-        }
-        return true;
+        return interceptProcessor.intercept(eventContext, eventDispatchInterceptors);
     }
 
     @Override
-    public void addInterceptor(EventDispatchInterceptor eventDispatchInterceptor) {
-        eventDispatchInterceptors.add(eventDispatchInterceptor);
+    public void addInterceptor(DispatchInterceptor dispatchInterceptor) {
+        eventDispatchInterceptors.add(dispatchInterceptor);
     }
 
     @Override

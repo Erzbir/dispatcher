@@ -73,10 +73,10 @@ public class GlobalEventChannel extends EventChannel<Event> {
         return delegate.getListeners();
     }
 
-    @Override
-    public <T extends Event> ListenerHandle register(Class<T> eventType, Listener<T> listener) {
-        return delegate.register(eventType, listener);
-    }
+//    @Override
+//    public <T extends Event> ListenerHandle register(Class<T> eventType, Listener<T> listener) {
+//        return delegate.register(eventType, listener);
+//    }
 }
 
 

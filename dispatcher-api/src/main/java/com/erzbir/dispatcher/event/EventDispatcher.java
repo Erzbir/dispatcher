@@ -1,6 +1,6 @@
 package com.erzbir.dispatcher.event;
 
-import com.erzbir.dispatcher.interceptor.EventDispatchInterceptor;
+import com.erzbir.dispatcher.interceptor.DispatchInterceptor;
 
 /**
  * 事件调度器
@@ -16,7 +16,7 @@ public interface EventDispatcher extends Cancelable {
 
     <E extends Event> void dispatch(E event, EventChannel<E> channel);
 
-    void addInterceptor(EventDispatchInterceptor eventDispatchInterceptor);
+    void addInterceptor(DispatchInterceptor dispatchInterceptor);
 
     void start();
 

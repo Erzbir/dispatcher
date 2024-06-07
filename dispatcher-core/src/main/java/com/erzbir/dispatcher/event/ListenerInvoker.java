@@ -1,5 +1,6 @@
 package com.erzbir.dispatcher.event;
 
+import com.erzbir.dispatcher.interceptor.Interceptor;
 import com.erzbir.dispatcher.interceptor.ListenerInterceptor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,12 +27,14 @@ final class BaseListenerInvoker implements ListenerInvoker {
 
 @Slf4j
 final class InterceptorInvoker implements ListenerInvoker {
-    public ListenerInvoker listenerInvoker;
-    public List<ListenerInterceptor> listenerInterceptors;
+    private ListenerInvoker listenerInvoker;
+    private List<Interceptor<ListenerContext>> listenerInterceptors;
+    private InterceptProcessor interceptProcessor;
 
-    public InterceptorInvoker(List<ListenerInterceptor> listenerInterceptors) {
+    public InterceptorInvoker(List<Interceptor<ListenerContext>> listenerInterceptors) {
         this.listenerInvoker = new BaseListenerInvoker();
         this.listenerInterceptors = listenerInterceptors;
+        this.interceptProcessor = new DefaultInterceptProcessor();
     }
 
     @Override
@@ -44,14 +47,7 @@ final class InterceptorInvoker implements ListenerInvoker {
 
 
     private boolean intercept(ListenerContext listenerContext) {
-        for (ListenerInterceptor listenerInterceptor : listenerInterceptors) {
-            if (!listenerInterceptor.intercept(listenerContext)) {
-                Listener<?> listener = listenerContext.getListener();
-                log.debug("Listener: {} was truncated", listener);
-                return false;
-            }
-        }
-        return true;
+        return interceptProcessor.intercept(listenerContext, listenerInterceptors);
     }
 
 }
