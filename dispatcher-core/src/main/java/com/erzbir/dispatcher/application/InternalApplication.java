@@ -11,7 +11,7 @@ import com.erzbir.dispatcher.event.PollingEventDispatcher;
  */
 public class InternalApplication implements Application {
     private final Configuration config = new DefaultConfiguration();
-    private EventDispatcher eventDispatcher;
+    private EventDispatcher eventDispatcher = new PollingEventDispatcher();
 
     @Override
     public Configuration getConfiguration() {
@@ -21,10 +21,18 @@ public class InternalApplication implements Application {
     @Override
     public EventDispatcher getEventDispatcher() {
         if (eventDispatcher == null) {
-            eventDispatcher = switch (config.getMode()) {
-                case POLL -> new PollingEventDispatcher();
-                case NOTIFY -> new NotificationEventDispatcher();
-            };
+            switch (config.getMode()) {
+                case POLL -> {
+                    if (!(eventDispatcher instanceof PollingEventDispatcher)) {
+                        eventDispatcher = new PollingEventDispatcher();
+                    }
+                }
+                case NOTIFY -> {
+                    if (!(eventDispatcher instanceof NotificationEventDispatcher)) {
+                        eventDispatcher = new NotificationEventDispatcher();
+                    }
+                }
+            }
         }
         return eventDispatcher;
     }
