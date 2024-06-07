@@ -1,6 +1,7 @@
 package com.erzbir.dispatcher.event;
 
 
+import com.erzbir.dispatcher.application.DefaultApplication;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import java.util.function.Predicate;
  */
 @Slf4j
 public class EventChannelImpl<E extends Event> extends EventChannel<E> {
-    private final ListenerInvoker listenerInvoker = new InterceptorInvoker(listenerInterceptors);
     // 为了避免监听器逻辑中出现阻塞, 从而导致监听无法取消
     private final Map<Listener<?>, Thread> taskMap = new WeakHashMap<>();
     protected List<ListenerDescription> listeners = new ArrayList<>();
@@ -82,6 +82,11 @@ public class EventChannelImpl<E extends Event> extends EventChannel<E> {
         return new SafeListener(listener);
     }
 
+    private boolean interceptProcess(ListenerContext listenerContext) {
+        InterceptProcessor interceptProcessor = new DefaultInterceptProcessor();
+        return interceptProcessor.intercept(listenerContext, interceptors);
+    }
+
 
     @Override
     public EventChannel<E> filter(Predicate<Event> predicate) {
@@ -111,9 +116,13 @@ public class EventChannelImpl<E extends Event> extends EventChannel<E> {
         }
     }
 
+
     private void process(ListenerDescription listenerDescription, E event) {
         Listener<?> listener = listenerDescription.listener();
         log.debug("Broadcasting event: {} to listener: {}", event, listener.getClass().getSimpleName());
+        if (!interceptProcess(new DefaultListenerContext(new DefaultEventContext(event), listener))) {
+            return;
+        }
         Thread invokeThread = Thread.ofVirtual()
                 .name("Listener-Invoke-Thread")
                 .unstarted(createInvokeRunnable(event, listener));
@@ -128,7 +137,7 @@ public class EventChannelImpl<E extends Event> extends EventChannel<E> {
                     Thread.currentThread().interrupt();
                     return;
                 }
-                ListenerResult listenerResult = listenerInvoker.invoke(new DefaultListenerContext(new DefaultEventContext(event), listener));
+                ListenerResult listenerResult = DefaultApplication.INSTANCE.getConfiguration().getInvoker().invoke(new DefaultListenerContext(new DefaultEventContext(event), listener));
                 if (!listenerResult.isContinue()) {
                     Thread.currentThread().interrupt();
                 }

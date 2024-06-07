@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
  * @since 1.0.0
  */
 @Slf4j
-class DefaultEventDispatcherTest {
+class DefaultEventApplicationTest {
 
     @Test
     void dispatch() throws InterruptedException {

@@ -8,15 +8,16 @@ import java.util.ServiceLoader;
  * @author Erzbir
  * @since 1.0.0
  */
-public class DefaultDispatcher implements Dispatcher {
-    private final Dispatcher delegate;
+public class DefaultApplication implements Application {
+    public static Application INSTANCE = new DefaultApplication();
+    private final Application delegate;
 
-    public DefaultDispatcher() {
-        delegate = ServiceLoader.load(Dispatcher.class).findFirst().orElseThrow();
+    public DefaultApplication() {
+        delegate = ServiceLoader.load(Application.class).findFirst().orElseThrow();
     }
 
     @Override
-    public DispatcherConfiguration getConfiguration() {
+    public Configuration getConfiguration() {
         return delegate.getConfiguration();
     }
 

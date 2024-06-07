@@ -1,7 +1,5 @@
 package com.erzbir.dispatcher.event;
 
-import com.erzbir.dispatcher.interceptor.ListenerInterceptor;
-
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -101,11 +99,6 @@ public class FilterEventChannel<E extends Event> extends EventChannel<E> {
     @Override
     public <T extends E> EventChannel<T> filterInstance(Class<T> eventType) {
         return delegate.filterInstance(eventType);
-    }
-
-    @Override
-    public void addInterceptor(ListenerInterceptor eventInterceptor) {
-        delegate.addInterceptor(eventInterceptor);
     }
 
     @Override

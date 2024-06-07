@@ -7,8 +7,8 @@ import com.erzbir.dispatcher.event.EventDispatcher;
  * @author Erzbir
  * @since 1.0.0
  */
-public interface Dispatcher {
-    DispatcherConfiguration getConfiguration();
+public interface Application {
+    Configuration getConfiguration();
 
     EventDispatcher getEventDispatcher();
 }

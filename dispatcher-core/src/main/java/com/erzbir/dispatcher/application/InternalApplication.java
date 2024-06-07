@@ -9,12 +9,12 @@ import com.erzbir.dispatcher.event.PollingEventDispatcher;
  * @author Erzbir
  * @since 1.0.0
  */
-public class DefaultDispatcher implements Dispatcher {
-    private final DispatcherConfiguration config = new DefaultDispatcherConfiguration();
+public class InternalApplication implements Application {
+    private final Configuration config = new DefaultConfiguration();
     private EventDispatcher eventDispatcher;
 
     @Override
-    public DispatcherConfiguration getConfiguration() {
+    public Configuration getConfiguration() {
         return config;
     }
 
